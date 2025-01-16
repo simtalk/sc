@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hans-cn">
+
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta name="force-rendering" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+<meta name="viewport" content="width=device-width">
+<title>SCIV - 赛微时代</title>
+<meta name="author" content="ZBlogger社区" />
+<script src="js/swiper.min.js"></script>
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/jquery.js"></script>
+<link href="css/fancybox.css" rel="stylesheet" type="text/css" />
+<script src="js/fancybox.js"></script>
+<script src="js/common.js"></script>
+<!-- <div class="slidemin">幻灯片</div> -->
+<script>window.zblog ={slideon:true,slidetime:9000,slidepagetype:true,slideeffect:false,slidedisplay:true,animation:true,selectstart:false,version:1.0}</script>
+<style>
+@font-face {
+    font-family: 'SCIVFont';
+    src: url('https://pic.seotool.vip/v1/2024/03/z1.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SaWeiFont';
+    src: url('https://zf.sc.chinaz.com/Files/DownLoad/upload/2023/0911/alimamafangyuanti.ttf') format('truetype');
+}
+
+/* 默认样式（PC端） */
+.slidetop span {
+    font-family: 'SCIVFont', sans-serif;
+    font-size: 90px; /* PC端字体大小 */
+}
+
+.slidetop {
+    font-family: 'SaWeiFont', sans-serif;
+    font-size: 90px; /* PC端字体大小 */
+}
+
+/* 手机端样式 */
+@media screen and (max-width: 768px) {
+    .slidetop span, .slidetop {
+        font-size: 45px; /* 手机端字体大小 */
+    }
+}
+/* 视频样式 */
+.slide-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 确保视频覆盖整个容器 */
+}
+
+/* 文字内容样式 */
+.slideitem {
+  position: relative;
+  z-index: 10; /* 确保文字在视频之上 */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: white; /* 使用白色文字以提高对比度 */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.slidetop, .slidedesc, .slidebtn {
+  margin: 10px 0; /* 添加一些间距 */
+}
+
+/*添加一些CSS样式来控制预加载 背景图片和视频的显示。*/
+.slide-video, .slide-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 确保视频覆盖整个容器 */
+}
+
+.slide-background {
+  display: block; /* 默认显示背景图片 */
+  z-index: 5; /* 确保背景图片在视频下方 */
+  background-size: cover; /* 背景图片覆盖整个容器 */
+  background-position: center; /* 背景图片居中显示 */
+}
+
+.slide-video {
+  z-index: 10; /* 确保视频在背景图片上方 */
+}
+
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="header">
+<div class="wrap">
+<div class="logo">
+<a href="https://www.sciv.cn">
+<img src="https://pic.seotool.vip/v1/2024/03/logo-sv2.png" alt="SCIV - 赛微时代">
+<img src="https://pic.seotool.vip/v1/2024/03/logo-sv4.png" alt="SCIV - 赛微时代">
+</a>
+</div>
+<div class="menuico"><span></span><span></span><span></span></div>
+<div class="menu">
+<ul>
+<li class="on"><a href="https://www.sciv.cn">首页</a></li>
+<li><a href="https://www.sciv.cn/bs">市场</a></li>
+<li><a href="https://www.sciv.cn/shehui">社会</a></li>
+<li><a href="https://www.sciv.cn/fz">发展</a></li>
+<li><a href="https://www.sciv.cn/new">动态</a></li>
+<li><a href="https://www.sciv.cn/ad">联系</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="main">
+<div class="slide swiper-container display">
+<ul class="swiper-wrapper">
+<li class="swiper-slide">
+<!-- 视频背景 -->
+<video id="background-video" autoplay muted loop playsinline preload="auto" class="slide-video">
+  <source src="https://pic.seotool.vip/v1/2024/03/homepage-bg-video2.mp4" type="video/mp4">
+  您的浏览器不支持 video 标签。
+</video>
+ <!-- 背景图片 -->
+  <div class="slide-background" style="background-image:url(https://pic.seotool.vip/v1/2024/03/slide01.jpg);"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var video = document.getElementById('background-video');
+    if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+      video.play();
+    } else {
+      document.addEventListener("WeixinJSBridgeReady", function () {
+        video.play();
+      }, false);
+    }
+  });
+</script>
+<!--使用JavaScript来检测视频的加载状态，并根据加载状态显示或隐藏背景图片。-->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var video = document.getElementById('background-video');
+    var background = document.querySelector('.slide-background');
+
+    video.addEventListener('loadeddata', function() {
+      // 视频加载成功，隐藏背景图片
+      background.style.display = 'none';
+    });
+
+    video.addEventListener('error', function() {
+      // 视频加载失败，显示背景图片
+      background.style.display = 'block';
+    });
+
+    // 检查视频是否已经加载完成
+    if (video.readyState > 0) {
+      background.style.display = 'none';
+    }
+  });
+</script>
+  <!-- 文字内容 -->
+  <div class="slideitem ">
+    <div class="slidetxt">
+      <div class="slidetop"><span>SCIV</span> 赛微时代</div>
+      <div class="slidedesc">
+        <p>Look at the World - 发现更大的世界</p>
+      </div>
+      <div class="slidebtn"><a href="https://www.sciv.cn" target="_blank">即刻探索</a></div>
+    </div>
+    <div class="slidetip">
+      <ul>
+        <li><i class="e77b"></i>创新进取，求实奋进</li>
+        <li><i class="e758"></i>团结协作，高效务实</li>
+        <li><i class="e74e"></i>追求卓越，持续精进</li>
+        <li><i class="e756"></i>敬业合作，诚信共赢</li>
+      </ul>
+    </div>
+  </div>
+</li>
+<li class="swiper-slide" style="background-image:url(https://pic.seotool.vip/v1/2024/03/slide02.jpg);">
+<div class="slideitem">
+<div class="slidetxt">
+<div class="slidetop"><span>SCIV</span> 赛微时代</div>
+<div class="slidedesc">
+<p>Look at the World - 发现更大的世界</p>
+</div>
+<div class="slidebtn"><a href="https://www.sciv.cn" target="_blank">即刻探索</a></div>
+<!-- <div class="slidemin">已支持IPv6访问</div> -->
+</div>
+<div class="slidetip">
+<ul>
+<li><i class="e77b"></i>创新进取，求实奋进</li>
+<li><i class="e758"></i>团结协作，高效务实</li>
+<li><i class="e74e"></i>追求卓越，持续精进</li>
+<li><i class="e756"></i>敬业合作，诚信共赢</li>
+</ul>
+</div>
+</div>
+</li>
+<li class="swiper-slide" style="background-image:url(https://pic.seotool.vip/v1/2024/03/slide03.jpg);">
+<div class="slideitem">
+<div class="slidetxt">
+<div class="slidetop"><span>SCIV</span> 赛微时代</div>
+<div class="slidedesc">
+<p>Look at the World - 发现更大的世界</p>
+</div>
+<div class="slidebtn"><a href="https://www.sciv.cn" target="_blank">即刻探索</a></div>
+</div>
+<div class="slidetip">
+<ul>
+<li><i class="e77b"></i>创新进取，求实奋进</li>
+<li><i class="e758"></i>团结协作，高效务实</li>
+<li><i class="e74e"></i>追求卓越，持续精进</li>
+<li><i class="e756"></i>敬业合作，诚信共赢</li>
+</ul>
+</div>
+</div>
+</li>
+</ul>
+<div class="swiper-pagination"></div>
+<div class="swiper-button-prev"></div>
+<div class="swiper-button-next"></div>
+</div>
+<div class="selling">
+<div class="wrap">
+<div class="caption">
+<h3>SCIV 旗下产业链</h3>
+<p>专注高精科创产业，深耕多年，经验丰富。</p>
+</div>
+<div class="sellinglist">
+<ul>
+<li>
+<a href="javascript:;">
+<span>🤖</span>
+<strong>自动驾驶</strong>
+<p>自研KernelOS系统，ADAS核心处理</p>
+</a>
+</li>
+<li>
+<a href="javascript:;">
+<span>🚀</span>
+<strong>商业卫星</strong>
+<p>遥感测控、星间路由，制导与控制系统</p>
+</a>
+</li>
+<li>
+<a href="javascript:;">
+<span>📗</span>
+<strong>生活服务</strong>
+<p>Ins日常、生活、分享、打卡、交流社区</p>
+</a>
+</li>
+<li>
+<a href="javascript:;">
+<span>💃</span>
+<strong>传媒经纪</strong>
+<p>MCN机构，艺人&主播培育、唱片发行</p>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="zblogdesc">
+<div class="wrap">
+<div class="caption">
+<h3>SCIV 让科技触手可得</h3>
+<p>持续加码AGI，涉足生物医疗、光伏能源等领域。</p>
+</div>
+<div class="zblogdesclist">
+<div class="zblogdescimg"><i></i><span><img src="https://pic.seotool.vip/v1/2024/03/px-2.jpg" alt="SCIV 让科技触手可得"></span></div>
+<div class="zblogdesctxt">
+<h4>自动驾驶卡车无人化测试</h4>
+<p>自动驾驶卡车编队在京津塘高速开展测试</p>
+<ul>
+<li>近日，小马智行自动驾驶卡车无人化技术再次获得突破性进展，全国首家获准开展编队自动驾驶跟随车主驾无人测试。小马智行作为唯一同时拥有京津冀三地跨省高速自动驾驶道路测试资质的企业，将在京津塘高速开启卡车编队跟随车无人化测试及货运服务。基于该许可，小马智行的自动驾驶卡车编队，将进行“1+N”编队自动驾驶后车主驾无人测试，持续推动实现自动驾驶卡车大规模商业化目标。</li>
+</ul>
+<a href="https://www.sciv.cn" class="btn">立即查看</a>
+</div>
+</div>
+<div class="zblogdesclist right">
+<div class="zblogdescimg"><i></i><span><img src="https://pic.seotool.vip/v1/2024/03/px-1.jpg" alt="SCIV 让科技触手可得"></span></div>
+<div class="zblogdesctxt">
+<h4>Polaris系统一号机点火</h4>
+<p>渲染XR-A001发动机全系二次点火试车</p>
+<ul>
+<li>此前，Polaris系列（即：星云创迹-北极星计划）发动机一号机（XR-A001）全系二次点火试车获圆满成功。采用高性能气燃烧液氧甲烷分级燃烧循环发动机，涡轮泵采用单预燃室单轴双涡轮设计，使用电打火并可多次启动，真空推力65kN，单次任务重复起动次数＞3次，比冲＞300s，摇摆角度双向±8°，推进剂质量约12吨，旨在提供拼车高轨发射服务或进一步增强运载火箭的运载能力。</li>
+</ul>
+<a href="https://www.sciv.cn" class="btn">立即查看</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<div class="fademask"></div>
+<div class="copyright">
+<div class="wrap">
+<ul class="footmenu">
+<li><a href="/map/">网站地图</a></li>
+<li><a href="/about/">关于我们</a></li>
+<li><a href="/disclaimer/">免责申明</a></li>
+<li><a href="/kefu/" target="_blank">联系客服</a></li>
+</ul>
+<hr style="visibility:hidden;" />
+<p>Copyright © 2025 SCIV赛微时代 版权所有. <a href="#" target="_blank"></a></p>
+<hr style="visibility:hidden;" />
+<p>由<a href="https://console.upyun.com" target="_blank" rel="nofollow"><img alt="又拍云" src="picture/upyun_logo.png" style="vertical-align: sub;height: 1.2em;"></a>提供CDN及云存储服务
+&nbsp;支持IPV6</a>访问
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
